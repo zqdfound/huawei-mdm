@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">com.huawei.mdm.sample</string>
+    <string name="current_state_wifi">"Current status:"</string>
+    <string name="current_state_keep_alive">"Current status:"</string>
+    <string name="current_state_screen_capture">"Current status:"</string>
+    <string name="state_restricted">Disabled</string>
+    <string name="state_nomal">Enabled</string>
+    <string name="state_keep_alive">Kept active</string>
+    <string name="state_cancel_alive">Not kept active</string>
+    <string name="disable_wifi">Disable Wi-Fi</string>
+    <string name="enable_wifi">Enable Wi-Fi</string>
+    <string name="keep_alive">Keep active</string>
+    <string name="cancel_alive">Cancel keep-active</string>
+    <string name="enable_screen_capture">Allow screenshots</string>
+    <string name="disable_screen_capture">Deny screenshots</string>
+    <string name="enable_data_conn">Enable data connection</string>
+    <string name="state_not_actived">App not activated</string>
+    <string name="no_permission">Permission required for this operation.</string>
+    <string name="not_support">Supported only in EMUI 11/HarmonyOS 2.0 or later.</string>
+    <string name="disable_warning">Some app functions will be unavailable if you deactivate the device manager. Continue anyway?</string>
+    <string name="accept_btn">AGREE</string>
+    <string name="exit_btn">CANCEL</string>
+    <string name="know">I have read and agree</string>
+    <string name="not_show_anymore">Don\'t show again</string>
+    <string name="title_license">Disclaimer and Software License Agreement</string>
+    <string name="title_permissions">Permissions Notice</string>
+    <string name="read_statement">By touching AGREE, you indicate that you have read and agree to the <a href="http://www.huawei.mdm.com">Disclaimer and Software License Agreement</a>.</string>
+    <string name="title_activemode">Select a method for activating the device manager.</string>
+    <string name="user_active_description">User confirmed activation: This is the more common method. After the user confirms activation, they can deactivate it again at any time.</string>
+    <string name="force_active_description">Forced activation: This is only available for enterprise customized devices (devices purchased through the enterprise customization service in Vmall). The user can only activate the device manager, and cannot deactivate it.</string>
+    <string name="delay_active_description">Delayed deactivation: A time period is specified (1 to 72 hours), and the time period starts after a successful activation. The device manager cannot be deactivated again until after the time period is up.</string>
+    <string name="user_activemode">User Confirmed Activation</string>
+    <string name="force_activemode">Forced Activation</string>
+    <string name="delay_activemode">Delayed Deactivation</string>
+    <string name="delay_hint">Enter time period 1–72 (hours)</string>
+    <string name="force_active_error">setForcedActiveDeviceAdmin error</string>
+    <string name="delay_deactive_error">setDelayDeactiveDeviceAdmin error</string>
+    <string name="title_active_device_manager">Activate Device Manager</string>
+    <string name="title_active">Activate</string>
+    <string name="text_return_code">Return code:</string>
+    <string name="text_result_description">Description:</string>
+    <string name="text_call_active">Activate License</string>
+    <string name="text_call_deactive">Deactivate License</string>
+    <string name="text_device_manager_deactivated">Device administrator deactivated.</string>
+    <string name="text_active_license_and_admin">Activate</string>
+    <string name="text_active_device_manager">Activate Device Administrator</string>
+    <string name="text_deactive_device_manager">Deactivate Device Manager</string>
+    <string name="license_not_actived">No permission</string>
+    <string name="text_active">Active</string>
+    <string name="text_not_active">Inactive</string>
+    <string name="current_state_license">License status:</string>
+    <string name="current_state_device_manager">Device administrator status:</string>
+    <string name="text_finish">Finish</string>
+    <string name="text_active_tips">Activate both the license and device administrator before using the MDM capability.</string>
+</resources>

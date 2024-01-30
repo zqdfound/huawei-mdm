@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">com.huawei.mdm.sample</string>
+    <string name="current_state_wifi">"当前状态："</string>
+    <string name="current_state_keep_alive">"当前状态："</string>
+    <string name="current_state_screen_capture">"当前状态："</string>
+    <string name="state_restricted">已禁用</string>
+    <string name="state_nomal">未禁用</string>
+    <string name="state_keep_alive">已保活</string>
+    <string name="state_cancel_alive">未保活</string>
+    <string name="disable_wifi">禁用WiFi</string>
+    <string name="enable_wifi">启用WiFi</string>
+    <string name="keep_alive">将该应用保活</string>
+    <string name="cancel_alive">取消该应用保活</string>
+    <string name="enable_screen_capture">启用截屏</string>
+    <string name="disable_screen_capture">禁用截屏</string>
+    <string name="enable_data_conn">启用数据连接</string>
+    <string name="state_not_actived">该应用未激活</string>
+    <string name="no_permission">无操作权限</string>
+    <string name="not_support">本应用只支持EMUI 11及以上或HarmonyOS 2.0及以上的版本</string>
+    <string name="disable_warning">取消激活后将导致本软件的部分功能无法正常工作，您确定要取消激活么？</string>
+    <string name="accept_btn">同意</string>
+    <string name="exit_btn">退出</string>
+    <string name="know">已阅读</string>
+    <string name="not_show_anymore">不再提示</string>
+    <string name="title_license">免责声明与软件许可协议</string>
+    <string name="title_permissions">权限使用声明</string>
+    <string name="read_statement">若您点击同意并开始使用本软件，代表您已阅读并接受<a href="http://www.huawei.mdm.com">《免责声明与软件许可协议》</a>。</string>
+    <string name="title_activemode">请选择以下模式中的一种进行设备管理器的激活。</string>
+    <string name="user_active_description">用户确认激活模式即普通的激活方式，激活后用户可随时解除激活。</string>
+    <string name="force_active_description">强制激活模式只在企业定制版本(通过华为商城企业定制服务进行定制的终端版本)上生效，用户只能点击激活，激活成功后无法手动解除激活。</string>
+    <string name="delay_active_description">延时解除激活模式请先输入延迟时间(范围在1~72的数字)，激活成功后用户在设定的延迟时间(单位：小时)过后才能解除激活设备管理器。</string>
+    <string name="user_activemode">用户确认激活模式</string>
+    <string name="force_activemode">强制激活模式</string>
+    <string name="delay_activemode">延时解除激活模式</string>
+    <string name="delay_hint">请输入延迟时间，范围：1~72</string>
+    <string name="force_active_error">setForcedActiveDeviceAdmin error</string>
+    <string name="delay_deactive_error">setDelayDeactiveDeviceAdmin error</string>
+    <string name="title_active_device_manager">激活设备管理器</string>
+    <string name="title_active">激活</string>
+    <string name="text_return_code">返回码：</string>
+    <string name="text_result_description">返回描述：</string>
+    <string name="text_call_active">激活 License</string>
+    <string name="text_call_deactive">解除激活 License</string>
+    <string name="text_device_manager_deactivated">设备管理器已解除激活</string>
+    <string name="text_active_license_and_admin">激活</string>
+    <string name="text_active_device_manager">激活设备管理器</string>
+    <string name="text_deactive_device_manager">解除激活设备管理器</string>
+    <string name="license_not_actived">该应用没有权限</string>
+    <string name="text_active">已激活</string>
+    <string name="text_not_active">未激活</string>
+    <string name="current_state_license">License状态:</string>
+    <string name="current_state_device_manager">设备管理器状态:</string>
+    <string name="text_finish">完成</string>
+    <string name="text_active_tips">使用MDM能力需同时激活License和设备管理器</string>
+</resources>
