@@ -23,6 +23,8 @@ import com.huawei.android.app.admin.DeviceRestrictionManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * The MainActivity for this Sample
  *
@@ -60,8 +62,14 @@ public class MainActivity extends Activity {
 
         initSampleView();
         updateState();
-
+        initJPush();
         new SampleEula(this).show();
+    }
+
+    private void initJPush() {
+        Log.i("极光","极光初始化");
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     private void initWifiView() {

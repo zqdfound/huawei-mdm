@@ -76,18 +76,13 @@ public class ActiveActivity extends AppCompatActivity {
         sharedPreferenceUtil = new SharedPreferenceUtil(this);
         mActivity = this;
 
-        initJPush();
         setStatusListener();
         initIds();
         dealBeLaunched();
         updateComponentStatus();
     }
 
-    private void initJPush() {
-        Log.i("极光","极光初始化");
-        JPushInterface.setDebugMode(true);
-        JPushInterface.init(this);
-    }
+
 
     @Override
     protected void onResume() {
