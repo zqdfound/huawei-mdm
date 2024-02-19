@@ -25,6 +25,13 @@ import androidx.appcompat.widget.Toolbar;
 import com.huawei.android.app.admin.DeviceControlManager;
 import com.huawei.hem.license.HemLicenseManager;
 import com.huawei.hem.license.HemLicenseStatusListener;
+import com.huawei.mdm.sample.pojo.MdmConstant;
+
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * MdmActivateLicenseActivity This activity is used to activate the license and device manager. Noted that MDM
@@ -69,10 +76,17 @@ public class ActiveActivity extends AppCompatActivity {
         sharedPreferenceUtil = new SharedPreferenceUtil(this);
         mActivity = this;
 
+        initJPush();
         setStatusListener();
         initIds();
         dealBeLaunched();
         updateComponentStatus();
+    }
+
+    private void initJPush() {
+        Log.i("极光","极光初始化");
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 
     @Override
@@ -138,6 +152,7 @@ public class ActiveActivity extends AppCompatActivity {
                 PersistableBundle bundle =
                     intent.getParcelableExtra(DevicePolicyManager.EXTRA_PROVISIONING_ADMIN_EXTRAS_BUNDLE);
 
+                sendSN(intent,"dealBeLaunched2："+sn);
                 isOobe = true;
                 hemInstance.activeLicense();
                 Log.i(TAG, "current activity is launched during the setup wizard flow");
@@ -150,6 +165,7 @@ public class ActiveActivity extends AppCompatActivity {
     private void onNavigataNext() {
         setResult(RESULT_OK);
         Intent intent = new Intent(this, MainActivity.class);
+        sendSN(intent,"onNavigataNext");
         intent.putExtra("ISOOBE", true);
         startActivity(intent);
         finish();
@@ -160,6 +176,7 @@ public class ActiveActivity extends AppCompatActivity {
      */
     private void activeDeviceManagerProcess() {
         Intent intent = new Intent(this, ActiveModeActivity.class);
+        sendSN(intent,"activeDeviceManagerProcess");
         startActivity(intent);
     }
 
@@ -243,6 +260,7 @@ public class ActiveActivity extends AppCompatActivity {
     private class MyHemLicenseStatusListener implements HemLicenseStatusListener {
         @Override
         public void onStatus(final int errorCode, final String msg) {
+
             if (isOobe) {
                 if (errorCode == LICENSE_ACTIVATE_SUCCESS && Utils.isActiveDeviceManagerProcess(mActivity)) {
                     sharedPreferenceUtil.saveActiveLicenseStatus(true);
@@ -258,13 +276,48 @@ public class ActiveActivity extends AppCompatActivity {
                 if (errorCode == LICENSE_ACTIVATE_SUCCESS) {
                     sharedPreferenceUtil.saveActiveLicenseStatus(true);
                     updateBtnStatus(true, true);
+                    //todo 注册
+                    Intent intent = mActivity.getIntent();
+                    sendSN(intent,"license激活成功");
                 } else if (errorCode == LICENSE_ACTIVATE_NOT_SUCCESS) {
                     sharedPreferenceUtil.saveActiveLicenseStatus(false);
                     updateBtnStatus(true, false);
+                    Intent intent = mActivity.getIntent();
+                    sendSN(intent,"license激活失败");
                 } else {
+                    Intent intent = mActivity.getIntent();
+                    sendSN(intent,"license激活失败，其他原因");
                     Log.v(TAG, "Other errorCode do not need to handle.");
                 }
             }
         }
+    }
+
+    private void sendSN(Intent intent,String opt){
+       // Bundle extras = intent.getExtras();
+        String sn = "";
+        String remark = "";
+
+        if(intent == null){
+          sn = "intent 为空";
+        }else{
+            if(intent.hasExtra(DevicePolicyManager.EXTRA_PROVISIONING_ADMIN_EXTRAS_BUNDLE)){
+                PersistableBundle bundle =
+                        intent.getParcelableExtra(DevicePolicyManager.EXTRA_PROVISIONING_ADMIN_EXTRAS_BUNDLE);
+                remark += "bundle更新";
+            }
+            if(intent.hasExtra(DevicePolicyManager.EXTRA_PROVISIONING_SERIAL_NUMBER)){
+                sn = intent.getStringExtra(DevicePolicyManager.EXTRA_PROVISIONING_SERIAL_NUMBER);
+                remark += "获取到sn";
+            }
+        }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.set("sn",sn);
+        jsonObject.set("opt",opt);
+        jsonObject.set("remark",remark);
+        Log.i(TAG, "AAAA");
+        Log.i(TAG, intent.getExtras() == null?"空":"非空");
+
+        String result = HttpRequest.post(MdmConstant.WEBHOOK_URL).body(JSONUtil.toJsonStr(jsonObject)).execute().body();
     }
 }

@@ -173,7 +173,7 @@ public class MainActivity extends Activity {
         updateState();
         super.onActivityResult(requestCode, resultCode, data);
     }
-
+    //示例调用禁止API
     private class SampleOnClickListener implements OnClickListener {
         @Override
         public void onClick(View view) {

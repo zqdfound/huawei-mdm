@@ -10,6 +10,21 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //极光推送
+        ndk {
+            //选择要添加的对应 cpu 类型的 .so 库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                //JPush 上注册的包名对应的 Appkey.
+                JPUSH_APPKEY : "e733f3d1f5449c9441497591",
+                //暂时填写默认值即可.
+                JPUSH_CHANNEL : "developer-default",
+
+                //若不集成厂商通道，可直接跳过以下配置
+        ]
     }
     buildTypes {
         release {
@@ -32,4 +47,8 @@ dependencies {
     implementation 'com.huawei.hms:hemsdk:1.0.4.300'
     testImplementation 'junit:junit:4.12'
     compileOnly 'com.huawei.mdm:mdmkit:13.1.0.300'
+    implementation 'cn.hutool:hutool-all:5.6.0'
+    // 此处以JPush 5.0.3 版本为例，注意：从 5.0.0 版本开始可以自动拉取 JCore 包，无需另外配置
+    implementation 'cn.jiguang.sdk:jpush:5.0.3'
+
 }
