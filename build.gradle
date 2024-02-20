@@ -2,6 +2,7 @@
 apply plugin: 'com.huawei.agconnect'
 buildscript {
     repositories {
+        mavenCentral()
         maven {
             url 'https://developer.huawei.com/repo'
         }
@@ -20,6 +21,7 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenCentral()
         maven {
             url 'https://developer.huawei.com/repo'
         }

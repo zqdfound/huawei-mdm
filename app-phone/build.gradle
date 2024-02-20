@@ -49,6 +49,6 @@ dependencies {
     compileOnly 'com.huawei.mdm:mdmkit:13.1.0.300'
     implementation 'cn.hutool:hutool-all:5.6.0'
     // 此处以JPush 5.0.3 版本为例，注意：从 5.0.0 版本开始可以自动拉取 JCore 包，无需另外配置
-    implementation 'cn.jiguang.sdk:jpush:5.0.3'
+    implementation 'cn.jiguang.sdk:jpush:5.2.0'
 
 }

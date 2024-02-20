@@ -81,6 +81,19 @@
                 <action android:name="cn.jiguang.user.service.action" />
             </intent-filter>
         </service>
+        <!-- Required since 5.2.0 -->
+        <!-- 新的 tag/alias 接口结果返回需要开发者配置一个自定义的Service -->
+        <!-- 5.2.0开始所有事件将通过该类回调 -->
+        <!-- 该广播需要继承 JPush 提供的 JPushMessageService 类, 并如下新增一个 Intent-Filter -->
+        <service
+            android:name="com.huawei.mdm.sample.JPushMsgService"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.SERVICE_MESSAGE" />
+                <category android:name="com.huawei.mdm.sample" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
