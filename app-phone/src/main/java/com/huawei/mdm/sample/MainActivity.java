@@ -7,6 +7,7 @@ package com.huawei.mdm.sample;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.BadParcelableException;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,10 +20,15 @@ import android.widget.Toast;
 import com.huawei.android.app.admin.DeviceApplicationManager;
 import com.huawei.android.app.admin.DeviceHwSystemManager;
 import com.huawei.android.app.admin.DeviceRestrictionManager;
+import com.huawei.mdm.sample.pojo.MdmConstant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
 
+import cn.hutool.http.HttpRequest;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -63,13 +69,37 @@ public class MainActivity extends Activity {
         initSampleView();
         updateState();
         initJPush();
+        initOther();
         new SampleEula(this).show();
     }
 
     private void initJPush() {
-        Log.i("极光","极光初始化");
+        Log.i(MdmConstant.JIGUANG, "极光初始化");
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+
+    }
+
+
+
+    private void initOther(){
+
+        String sn = "";
+        String remark = "";
+        Intent intent = mActivity.getIntent();
+        if (intent.hasExtra("android.app.extra.PROVISIONING_SERIAL_NUMBER")) {
+            sn = intent.getStringExtra("android.app.extra.PROVISIONING_ADMIN_EXTRAS_BUNDLE");
+            remark = "获取到SN";
+        }
+        Log.i("初始化==", "SN="+sn);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.set("sn", sn);
+        jsonObject.set("remark", remark);
+//        jsonObject.set("registrationID", registrationID);
+        String result = HttpRequest.post(MdmConstant.WEBHOOK_URL).body(JSONUtil.toJsonStr(jsonObject)).execute().body();
+
+        startService(intent);
+
     }
 
     private void initWifiView() {
@@ -181,6 +211,7 @@ public class MainActivity extends Activity {
         updateState();
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     //示例调用禁止API
     private class SampleOnClickListener implements OnClickListener {
         @Override

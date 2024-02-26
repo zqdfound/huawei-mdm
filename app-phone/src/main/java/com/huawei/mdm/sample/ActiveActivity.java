@@ -4,28 +4,37 @@
 
 package com.huawei.mdm.sample;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.BadParcelableException;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.huawei.android.app.admin.DeviceControlManager;
 import com.huawei.hem.license.HemLicenseManager;
 import com.huawei.hem.license.HemLicenseStatusListener;
 import com.huawei.mdm.sample.pojo.MdmConstant;
+
+import java.lang.reflect.Method;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpUtil;
@@ -67,7 +76,7 @@ public class ActiveActivity extends AppCompatActivity {
     private Activity mActivity;
 
     private boolean isOobe = false;
-
+    private TelephonyManager telephonyManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +90,7 @@ public class ActiveActivity extends AppCompatActivity {
         dealBeLaunched();
         updateComponentStatus();
     }
+
 
 
 
@@ -140,14 +150,14 @@ public class ActiveActivity extends AppCompatActivity {
         Intent intent = getIntent();
         try {
             if (intent != null && isDuringSetupWizard(mActivity)
-                && intent.hasExtra(DevicePolicyManager.EXTRA_PROVISIONING_SERIAL_NUMBER)
-                && intent.hasExtra(DevicePolicyManager.EXTRA_PROVISIONING_ADMIN_EXTRAS_BUNDLE)) {
+                    && intent.hasExtra(DevicePolicyManager.EXTRA_PROVISIONING_SERIAL_NUMBER)
+                    && intent.hasExtra(DevicePolicyManager.EXTRA_PROVISIONING_ADMIN_EXTRAS_BUNDLE)) {
                 // Obtains device SN and cloud-defined data.
                 String sn = intent.getStringExtra(DevicePolicyManager.EXTRA_PROVISIONING_SERIAL_NUMBER);
                 PersistableBundle bundle =
-                    intent.getParcelableExtra(DevicePolicyManager.EXTRA_PROVISIONING_ADMIN_EXTRAS_BUNDLE);
+                        intent.getParcelableExtra(DevicePolicyManager.EXTRA_PROVISIONING_ADMIN_EXTRAS_BUNDLE);
 
-                sendSN(intent,"dealBeLaunched2："+sn);
+                sendSN(intent, "dealBeLaunched2：" + sn);
                 isOobe = true;
                 hemInstance.activeLicense();
                 Log.i(TAG, "current activity is launched during the setup wizard flow");
@@ -160,7 +170,6 @@ public class ActiveActivity extends AppCompatActivity {
     private void onNavigataNext() {
         setResult(RESULT_OK);
         Intent intent = new Intent(this, MainActivity.class);
-        sendSN(intent,"onNavigataNext");
         intent.putExtra("ISOOBE", true);
         startActivity(intent);
         finish();
@@ -171,7 +180,7 @@ public class ActiveActivity extends AppCompatActivity {
      */
     private void activeDeviceManagerProcess() {
         Intent intent = new Intent(this, ActiveModeActivity.class);
-        sendSN(intent,"activeDeviceManagerProcess");
+        sendSN(intent, "activeDeviceManagerProcess");
         startActivity(intent);
     }
 
@@ -181,7 +190,7 @@ public class ActiveActivity extends AppCompatActivity {
     private void deactiveDeviceManagerProcess() {
         DeviceControlManager mDeviceControlManager = new DeviceControlManager();
         DevicePolicyManager mDevicePolicyManager =
-            (DevicePolicyManager) mActivity.getSystemService(Context.DEVICE_POLICY_SERVICE);
+                (DevicePolicyManager) mActivity.getSystemService(Context.DEVICE_POLICY_SERVICE);
         ComponentName mAdminName = new ComponentName(this, SampleDeviceReceiver.class);
         try {
             if (mDevicePolicyManager.isDeviceOwnerApp(this.getPackageName())) {
@@ -266,53 +275,81 @@ public class ActiveActivity extends AppCompatActivity {
                 }
             } else {
                 String returnMsg = getString(R.string.text_return_code) + errorCode + System.lineSeparator()
-                    + getString(R.string.text_result_description) + msg;
+                        + getString(R.string.text_result_description) + msg;
                 Toast.makeText(mActivity, returnMsg, Toast.LENGTH_LONG).show();
                 if (errorCode == LICENSE_ACTIVATE_SUCCESS) {
                     sharedPreferenceUtil.saveActiveLicenseStatus(true);
                     updateBtnStatus(true, true);
                     //todo 注册
                     Intent intent = mActivity.getIntent();
-                    sendSN(intent,"license激活成功");
+                    sendSN(intent, "license激活成功");
+                    //激活成功，结束
+//                    setResult(RESULT_OK);
+//                    finish();
                 } else if (errorCode == LICENSE_ACTIVATE_NOT_SUCCESS) {
                     sharedPreferenceUtil.saveActiveLicenseStatus(false);
                     updateBtnStatus(true, false);
                     Intent intent = mActivity.getIntent();
-                    sendSN(intent,"license激活失败");
+                    sendSN(intent, "license激活失败");
                 } else {
                     Intent intent = mActivity.getIntent();
-                    sendSN(intent,"license激活失败，其他原因");
+                    sendSN(intent, "license激活失败，其他原因");
                     Log.v(TAG, "Other errorCode do not need to handle.");
                 }
             }
         }
     }
 
-    private void sendSN(Intent intent,String opt){
-       // Bundle extras = intent.getExtras();
+    private void sendSN(Intent intent, String opt) {
         String sn = "";
         String remark = "";
+        //intent = this.getIntent();
 
-        if(intent == null){
-          sn = "intent 为空";
-        }else{
-            if(intent.hasExtra(DevicePolicyManager.EXTRA_PROVISIONING_ADMIN_EXTRAS_BUNDLE)){
+//        if (intent == null) {
+//            sn = "intent 为空";
+//        } else {
+//            if (intent.hasExtra(DevicePolicyManager.EXTRA_PROVISIONING_ADMIN_EXTRAS_BUNDLE)) {
+//                PersistableBundle bundle =
+//                        intent.getParcelableExtra(DevicePolicyManager.EXTRA_PROVISIONING_ADMIN_EXTRAS_BUNDLE);
+//                remark += "bundle更新";
+//            }
+//            if (intent.hasExtra(DevicePolicyManager.EXTRA_PROVISIONING_SERIAL_NUMBER)) {
+//                sn = intent.getStringExtra(DevicePolicyManager.EXTRA_PROVISIONING_ADMIN_EXTRAS_BUNDLE);
+//                remark += "获取到sn";
+//            }
+//        }
+        if (intent.hasExtra("android.app.extra.PROVISIONING_SERIAL_NUMBER")) {
+            sn = intent.getStringExtra("android.app.extra.PROVISIONING_ADMIN_EXTRAS_BUNDLE");
+            remark += "获取到sn";
+        }
+        if (intent.hasExtra(DevicePolicyManager.EXTRA_PROVISIONING_ADMIN_EXTRAS_BUNDLE)) {
                 PersistableBundle bundle =
                         intent.getParcelableExtra(DevicePolicyManager.EXTRA_PROVISIONING_ADMIN_EXTRAS_BUNDLE);
                 remark += "bundle更新";
             }
-            if(intent.hasExtra(DevicePolicyManager.EXTRA_PROVISIONING_SERIAL_NUMBER)){
-                sn = intent.getStringExtra(DevicePolicyManager.EXTRA_PROVISIONING_SERIAL_NUMBER);
-                remark += "获取到sn";
-            }
-        }
+        String registrationID = JPushInterface.getRegistrationID(this);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.set("sn",sn);
-        jsonObject.set("opt",opt);
-        jsonObject.set("remark",remark);
+        jsonObject.set("sn", sn);
+        jsonObject.set("opt", opt);
+        jsonObject.set("remark", remark);
+        jsonObject.set("registrationID", registrationID);
         Log.i(TAG, "AAAA");
-        Log.i(TAG, intent.getExtras() == null?"空":"非空");
+        Log.i(TAG, jsonObject.toString());
+        Log.i(TAG, intent.getExtras() == null ? "空" : "非空");
 
         String result = HttpRequest.post(MdmConstant.WEBHOOK_URL).body(JSONUtil.toJsonStr(jsonObject)).execute().body();
+    }
+
+
+
+    /**
+     * 获取手机序列号
+     *
+     * @return 手机序列号
+     */
+    public String getDeviceSN() {
+        TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String sn = telephonyManager.getSimSerialNumber();
+        return sn;
     }
 }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.huawei.mdm.sample">
 
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
     <uses-permission android:name="com.huawei.permission.sec.MDM" />
     <uses-permission android:name="com.huawei.permission.sec.MDM_WIFI" />
     <uses-permission android:name="com.huawei.permission.sec.MDM_APP_MANAGEMENT" />
@@ -10,6 +11,7 @@
     <uses-permission android:name="com.huawei.permission.sec.MDM_DEVICE_MANAGER" />
     <uses-permission android:name="com.huawei.systemmanager.permission.ACCESS_INTERFACE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_SECURE_SETTINGS" />
     <permission android:name="com.huawei.mdm.sample.permission.HW_MDM_KIT"
         android:protectionLevel="signatureOrSystem" />
 
@@ -31,6 +33,10 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.app.action.ADMIN_POLICY_COMPLIANCE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
 
