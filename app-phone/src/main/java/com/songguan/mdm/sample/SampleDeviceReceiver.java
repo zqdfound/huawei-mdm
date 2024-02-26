@@ -2,11 +2,13 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2019-2021. All rights reserved.
  */
 
-package com.huawei.mdm.sample;
+package com.songguan.mdm.sample;
 
 import android.app.admin.DeviceAdminReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import com.songguan.mdm.sample.R;
 
 /**
  * The DeviceAdminReceiver for this Sample

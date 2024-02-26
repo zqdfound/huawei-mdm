@@ -2,7 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2020-2021. All rights reserved.
  */
 
-package com.huawei.mdm.sample;
+package com.songguan.mdm.sample;
 
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.huawei.android.app.admin.DeviceControlManager;
+import com.songguan.mdm.sample.R;
 
 /**
  * The ActiveModeActivity for this Sample

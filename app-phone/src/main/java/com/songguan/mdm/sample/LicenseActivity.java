@@ -2,7 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2019-2021. All rights reserved.
  */
 
-package com.huawei.mdm.sample;
+package com.songguan.mdm.sample;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.text.Html;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.songguan.mdm.sample.R;
 
 /**
  * The LicenseActivity for this Sample

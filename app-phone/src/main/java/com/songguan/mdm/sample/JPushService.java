@@ -1,4 +1,4 @@
-package com.huawei.mdm.sample;
+package com.songguan.mdm.sample;
 
 
 

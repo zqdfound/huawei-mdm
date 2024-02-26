@@ -2,17 +2,14 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2022. All rights reserved.
  */
 
-package com.huawei.mdm.sample;
+package com.songguan.mdm.sample;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.BadParcelableException;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.provider.Settings;
@@ -23,21 +20,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.huawei.android.app.admin.DeviceControlManager;
 import com.huawei.hem.license.HemLicenseManager;
 import com.huawei.hem.license.HemLicenseStatusListener;
-import com.huawei.mdm.sample.pojo.MdmConstant;
-
-import java.lang.reflect.Method;
+import com.songguan.mdm.sample.R;
+import com.songguan.mdm.sample.pojo.MdmConstant;
 
 import cn.hutool.http.HttpRequest;
-import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import cn.jpush.android.api.JPushInterface;

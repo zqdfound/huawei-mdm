@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.huawei.mdm.sample">
+    package="com.songguan.mdm.sample">
 
     <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
     <uses-permission android:name="com.huawei.permission.sec.MDM" />
@@ -12,7 +12,7 @@
     <uses-permission android:name="com.huawei.systemmanager.permission.ACCESS_INTERFACE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_SECURE_SETTINGS" />
-    <permission android:name="com.huawei.mdm.sample.permission.HW_MDM_KIT"
+    <permission android:name="com.songguan.mdm.sample.permission.HW_MDM_KIT"
         android:protectionLevel="signatureOrSystem" />
 
     <application
@@ -25,11 +25,11 @@
         <meta-data android:name="hwc-theme"
             android:value="androidhwext:style/Theme.Emui" />
         <activity
-            android:name="com.huawei.mdm.sample.MainActivity"
+            android:name="com.songguan.mdm.sample.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:label="@string/app_name"
-            android:permission="com.huawei.mdm.sample.permission.HW_MDM_KIT">
+            android:permission="com.songguan.mdm.sample.permission.HW_MDM_KIT">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -41,7 +41,7 @@
         </activity>
 
         <activity
-            android:name="com.huawei.mdm.sample.ActiveActivity"
+            android:name="com.songguan.mdm.sample.ActiveActivity"
             android:theme="@style/AppTheme"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -53,19 +53,19 @@
         </activity>
 
         <activity
-            android:name="com.huawei.mdm.sample.ActiveModeActivity"
+            android:name="com.songguan.mdm.sample.ActiveModeActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"
             android:exported="false">
         </activity>
 
         <activity
-            android:name="com.huawei.mdm.sample.LicenseActivity"
+            android:name="com.songguan.mdm.sample.LicenseActivity"
             android:screenOrientation="portrait"
             android:exported="false">
         </activity>
 
-        <receiver android:name="com.huawei.mdm.sample.SampleDeviceReceiver"
+        <receiver android:name="com.songguan.mdm.sample.SampleDeviceReceiver"
             android:label="MDM_Sample"
             android:exported="true"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
@@ -79,7 +79,7 @@
         <!-- Since JCore2.0.0 Required SDK核心功能-->
         <!-- 可配置android:process参数将Service放在其他进程中；android:enabled属性不能是false -->
         <!-- 这个是自定义Service，要继承极光JCommonService，可以在更多手机平台上使得推送通道保持的更稳定 -->
-        <service android:name="com.huawei.mdm.sample.JPushService"
+        <service android:name="com.songguan.mdm.sample.JPushService"
             android:enabled="true"
             android:exported="false"
             android:process=":pushcore">
@@ -92,12 +92,12 @@
         <!-- 5.2.0开始所有事件将通过该类回调 -->
         <!-- 该广播需要继承 JPush 提供的 JPushMessageService 类, 并如下新增一个 Intent-Filter -->
         <service
-            android:name="com.huawei.mdm.sample.JPushMsgService"
+            android:name="com.songguan.mdm.sample.JPushMsgService"
             android:enabled="true"
             android:exported="false" >
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.SERVICE_MESSAGE" />
-                <category android:name="com.huawei.mdm.sample" />
+                <category android:name="com.songguan.mdm.sample" />
             </intent-filter>
         </service>
     </application>

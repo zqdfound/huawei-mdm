@@ -2,7 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2019-2021. All rights reserved.
  */
 
-package com.huawei.mdm.sample;
+package com.songguan.mdm.sample;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -20,6 +20,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import com.songguan.mdm.sample.R;
 
 /**
  * The SampleEula for this Sample

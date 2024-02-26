@@ -2,12 +2,11 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2019-2021. All rights reserved.
  */
 
-package com.huawei.mdm.sample;
+package com.songguan.mdm.sample;
 
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.BadParcelableException;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,11 +19,11 @@ import android.widget.Toast;
 import com.huawei.android.app.admin.DeviceApplicationManager;
 import com.huawei.android.app.admin.DeviceHwSystemManager;
 import com.huawei.android.app.admin.DeviceRestrictionManager;
-import com.huawei.mdm.sample.pojo.MdmConstant;
+import com.songguan.mdm.sample.R;
+import com.songguan.mdm.sample.pojo.MdmConstant;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executor;
 
 import cn.hutool.http.HttpRequest;
 import cn.hutool.json.JSONObject;
@@ -39,7 +38,7 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
-    private static final String PACKAGE_NAME = "com.huawei.mdm.sample";
+    private static final String PACKAGE_NAME = "com.songguan.mdm.sample";
     private static final int REQUEST_ENABLE = 1;
 
     private DeviceRestrictionManager mDeviceRestrictionManager = null;

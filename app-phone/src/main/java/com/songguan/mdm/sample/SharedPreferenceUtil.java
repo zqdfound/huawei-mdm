@@ -2,7 +2,7 @@
  * Copyright (c) Huawei Technologies Co., Ltd. 2019-2021. All rights reserved.
  */
 
-package com.huawei.mdm.sample;
+package com.songguan.mdm.sample;
 
 import android.content.Context;
 import android.content.SharedPreferences;

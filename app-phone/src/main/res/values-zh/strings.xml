@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">com.huawei.mdm.sample</string>
+    <string name="app_name">com.songguan.mdm.sample</string>
     <string name="current_state_wifi">"当前状态："</string>
     <string name="current_state_keep_alive">"当前状态："</string>
     <string name="current_state_screen_capture">"当前状态："</string>

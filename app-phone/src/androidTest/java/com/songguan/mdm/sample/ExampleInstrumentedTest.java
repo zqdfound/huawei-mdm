@@ -1,4 +1,4 @@
-//package com.huawei.mdm.sample;
+//package com.songguan.mdm.sample;
 //
 //import android.content.Context;
 //import androidx.test.InstrumentationRegistry;
@@ -22,6 +22,6 @@
 //        // Context of the app under test.
 //        Context appContext = InstrumentationRegistry.getTargetContext();
 //
-//        assertEquals("com.huawei.mdm.sample", appContext.getPackageName());
+//        assertEquals("com.songguan.mdm.sample", appContext.getPackageName());
 //    }
 //}
